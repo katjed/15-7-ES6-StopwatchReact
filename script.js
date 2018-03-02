@@ -91,3 +91,10 @@ function pad0(value) {
 
 let stopwatch = React.createElement(Stopwatch);
 ReactDOM.render(stopwatch, document.getElementById('app'));
+
+/*
+ReactDOM.render (
+	<Stopwatch />,
+	document.getElementById('app')
+);
+*/
