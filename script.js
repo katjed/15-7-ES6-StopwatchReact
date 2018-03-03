@@ -2,7 +2,6 @@ class Stopwatch extends React.Component {
     constructor() {
     	super();
     	this.running = false;
-		this.reset();
 		
 		this.state = {
 			times: {
@@ -28,7 +27,7 @@ class Stopwatch extends React.Component {
 	}
 
 	start() {
-		if (!this.state.running) {
+		if (!this.running) {
 		    this.running = true;
 		    this.watch = setInterval(() => this.step(), 10);
 		}
@@ -39,26 +38,24 @@ class Stopwatch extends React.Component {
 	    this.calculate();	    
 	}
 
-	calculate() {    // ???
-		this.setState(
-		/*
-		this.times.miliseconds += 1;
-	    if (this.times.miliseconds >= 100) {
-	        this.times.seconds += 1;
-	        this.times.miliseconds = 0;
-	    }
-	    if (this.times.seconds >= 60) {
-	        this.times.minutes += 1;
-	        this.times.seconds = 0;
-	    }
-		*/
-		)
+	calculate() {   
+		this.setState(prevState => {
+			prevState.times.miliseconds += 1;
+			if (prevState.times.miliseconds >= 100) {
+				prevState.times.seconds += 1;
+				prevState.times.miliseconds = 0;
+			}
+			if (prevState.times.seconds >= 60) {
+				prevState.times.minutes += 1;
+				prevState.times.seconds = 0;
+			}
+
+			return prevState;
+		});
 	}
 
 	stop() {
-	    this.setState ({
-            running: false
-        });
+	    this.running = false;
 	    clearInterval(this.watch);
 	}
 
@@ -66,12 +63,8 @@ class Stopwatch extends React.Component {
 	    return (
 	    	<div className="container">
 	    		<nav className='controls'>
-					<a href='#' className='button' onClick={() => this.start()}>Start</a>   
-					<a href='#' className='button' onClick={() => this.stop()}>Stop</a>
-					/*
 					<button onClick={this.start.bind(this)}>Start</button>
 					<button onClick={this.stop.bind(this)}>Stop</button>
-					*/
 				</nav>
 				<div className="stopwatch">
 					{this.format()}
@@ -89,12 +82,7 @@ function pad0(value) {
 	return result;
 }
 
-let stopwatch = React.createElement(Stopwatch);
-ReactDOM.render(stopwatch, document.getElementById('app'));
-
-/*
 ReactDOM.render (
 	<Stopwatch />,
 	document.getElementById('app')
 );
-*/
