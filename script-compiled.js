@@ -11,21 +11,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Stopwatch = function (_React$Component) {
 	_inherits(Stopwatch, _React$Component);
 
-	function Stopwatch() {
+	function Stopwatch() /*props*/{
 		_classCallCheck(this, Stopwatch);
 
 		var _this = _possibleConstructorReturn(this, (Stopwatch.__proto__ || Object.getPrototypeOf(Stopwatch)).call(this));
 
 		_this.running = false;
-
 		_this.state = {
+			//running: false, ???
 			times: {
 				minutes: 0,
 				seconds: 0,
-				miliseconds: 0
-			}
-		};
-		return _this;
+				miliseconds: 0 //,
+				//results: []  
+			} //;    	
+		};return _this;
 	}
 
 	_createClass(Stopwatch, [{
@@ -75,7 +75,6 @@ var Stopwatch = function (_React$Component) {
 					prevState.times.minutes += 1;
 					prevState.times.seconds = 0;
 				}
-
 				return prevState;
 			});
 		}
@@ -86,8 +85,33 @@ var Stopwatch = function (_React$Component) {
 			clearInterval(this.watch);
 		}
 	}, {
+		key: "resetStopwatch",
+		value: function resetStopwatch() {
+			this.running = false;
+			this.reset();
+		}
+		/*
+      save() {
+          const liElement = document.createElement('li');
+  
+          liElement.innerText = this.format(this.times);
+          this.results.appendChild(liElement);
+      }
+  
+      clear() {
+          this.results.removeChild(this.results.lastChild);
+      }
+  
+      clearList() {
+          this.results.innerHTML = '';
+      }	
+  */
+
+	}, {
 		key: "render",
 		value: function render() {
+			var _this3 = this;
+
 			return React.createElement(
 				"div",
 				{ className: "container" },
@@ -103,12 +127,46 @@ var Stopwatch = function (_React$Component) {
 						"button",
 						{ onClick: this.stop.bind(this) },
 						"Stop"
-					)
+					),
+					React.createElement(
+						"button",
+						{ onClick: this.resetStopwatch.bind(this) },
+						"Reset"
+					),
+					React.createElement(
+						"button",
+						{ onClick: this.save.bind(this) },
+						"Save"
+					),
+					React.createElement(
+						"button",
+						{ onClick: this.clear.bind(this) },
+						"Clear"
+					),
+					React.createElement(
+						"button",
+						{ onClick: this.clearList.bind(this) },
+						"Clear list"
+					),
+					"/*",
+					React.createElement(
+						"button",
+						{ onClick: function onClick(e) {
+								return _this3.start(e);
+							} },
+						"Start"
+					),
+					"*/"
 				),
 				React.createElement(
 					"div",
 					{ className: "stopwatch" },
 					this.format()
+				),
+				React.createElement(
+					"ul",
+					{ className: "results" },
+					this.results
 				)
 			);
 		}

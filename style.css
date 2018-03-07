@@ -8,25 +8,19 @@ body {
 }
 
 .controls {
-	margin-top: 30px;
-}
-
-.button {
-	color: #328276;
-	text-decoration: none;
-}
-
-#start {
-	margin-right: 10px;
-}
-
-#stop {
-	margin-left: 10px;
+	margin-top: 50px;
 }
 
 .stopwatch {
 	color: #328276;
 	font-size: 50px;
+	margin: 20px 0;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 
 
