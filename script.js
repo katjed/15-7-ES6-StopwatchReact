@@ -1,16 +1,16 @@
 class Stopwatch extends React.Component {
-    constructor(/*props*/) {  
-    	super(/*props*/);  
+    constructor(props) {  
+    	super(props);  
+
     	this.running = false;		
 		this.state = {
-			//running: false, ???
 			times: {
 				minutes: 0,
 				seconds: 0,
 				miliseconds: 0
-			}//,
-			//results: []  
-		}//;    	
+			},
+			results: []  
+		};
     }
 
     reset() {
@@ -63,22 +63,30 @@ class Stopwatch extends React.Component {
         this.running = false;
         this.reset();
     }
-/*
-    save() {
-        const liElement = document.createElement('li');
 
-        liElement.innerText = this.format(this.times);
-        this.results.appendChild(liElement);
+    save() {
+        const newResults = this.state.results.slice();
+        newResults.push(this.format());
+
+        this.setState({
+            results: newResults
+        });
     }
 
     clear() {
-        this.results.removeChild(this.results.lastChild);
+        const newResults = this.state.results.slice(0, this.state.results.length - 1);
+
+        this.setState({
+            results: newResults
+        });
     }
 
     clearList() {
-        this.results.innerHTML = '';
+        this.setState({
+            results: []
+        });
     }	
-*/
+
     render() {    
 	    return (
 	    	<div className="container">
@@ -89,13 +97,12 @@ class Stopwatch extends React.Component {
 					<button onClick={this.save.bind(this)}>Save</button>
 					<button onClick={this.clear.bind(this)}>Clear</button>
 					<button onClick={this.clearList.bind(this)}>Clear list</button>
-					/*<button onClick={e => this.start(e)}>Start</button>*/
 				</nav>
 				<div className="stopwatch">
 					{this.format()}
 				</div>
 				<ul className="results">
-					{this.results}
+					{this.state.results.map((result, id) => <li key={id}>{result}</li>)}
 				</ul>
 			</div>
 		);
