@@ -1,3 +1,3 @@
-task-15-7
+15-7-ES6-StopwatchReact
 
-https://katjed.github.io/task-15-7/
+https://katjed.github.io/15-7-ES6-StopwatchReact/
